@@ -13,29 +13,31 @@
   const GRID = 0.1;
 
   const FURNITURE = [
-    { type: 'bett', name: 'Bett 160×200', w: 1.6, h: 2.0, color: '#dbeafe' },
-    { type: 'doppelbett', name: 'Doppelbett 180×200', w: 1.8, h: 2.0, color: '#dbeafe' },
-    { type: 'einzelbett', name: 'Einzelbett 90×200', w: 0.9, h: 2.0, color: '#dbeafe' },
-    { type: 'sofa', name: 'Sofa 220×90', w: 2.2, h: 0.9, color: '#fecaca' },
-    { type: 'sessel', name: 'Sessel 80×80', w: 0.8, h: 0.8, color: '#fecaca' },
-    { type: 'esstisch', name: 'Esstisch 160×90', w: 1.6, h: 0.9, color: '#fef3c7' },
-    { type: 'stuhl', name: 'Stuhl 45×45', w: 0.45, h: 0.45, color: '#fef3c7' },
-    { type: 'schreibtisch', name: 'Schreibtisch 140×70', w: 1.4, h: 0.7, color: '#fef3c7' },
-    { type: 'schrank', name: 'Schrank 120×60', w: 1.2, h: 0.6, color: '#e7d8c9' },
-    { type: 'kleiderschrank', name: 'Kleiderschrank 180×60', w: 1.8, h: 0.6, color: '#e7d8c9' },
-    { type: 'kommode', name: 'Kommode 100×50', w: 1.0, h: 0.5, color: '#e7d8c9' },
-    { type: 'buecherregal', name: 'Bücherregal 100×30', w: 1.0, h: 0.3, color: '#e7d8c9' },
-    { type: 'kuechenzeile', name: 'Küchenzeile 300×60', w: 3.0, h: 0.6, color: '#d1d5db' },
-    { type: 'herd', name: 'Herd 60×60', w: 0.6, h: 0.6, color: '#9ca3af' },
-    { type: 'kuehlschrank', name: 'Kühlschrank 70×70', w: 0.7, h: 0.7, color: '#e5e7eb' },
-    { type: 'spuele', name: 'Spüle 80×60', w: 0.8, h: 0.6, color: '#bae6fd' },
-    { type: 'badewanne', name: 'Badewanne 170×75', w: 1.7, h: 0.75, color: '#bae6fd' },
-    { type: 'dusche', name: 'Dusche 90×90', w: 0.9, h: 0.9, color: '#bae6fd' },
-    { type: 'wc', name: 'WC 40×70', w: 0.4, h: 0.7, color: '#e5e7eb' },
-    { type: 'waschbecken', name: 'Waschbecken 60×50', w: 0.6, h: 0.5, color: '#bae6fd' },
-    { type: 'tv', name: 'TV-Regal 120×10', w: 1.2, h: 0.1, color: '#111827' },
-    { type: 'teppich', name: 'Teppich 200×150', w: 2.0, h: 1.5, color: '#f5f5f4' },
-    { type: 'pflanze', name: 'Pflanze 40×40', w: 0.4, h: 0.4, color: '#bbf7d0' }
+    { type: 'bett', name: 'Bett 160×200', w: 1.6, h: 2.0, color: '#dbeafe', shape: 'bed' },
+    { type: 'doppelbett', name: 'Doppelbett 180×200', w: 1.8, h: 2.0, color: '#dbeafe', shape: 'bed' },
+    { type: 'einzelbett', name: 'Einzelbett 90×200', w: 0.9, h: 2.0, color: '#dbeafe', shape: 'bed' },
+    { type: 'sofa', name: 'Sofa 220×90', w: 2.2, h: 0.9, color: '#fecaca', shape: 'sofa' },
+    { type: 'sessel', name: 'Sessel 80×80', w: 0.8, h: 0.8, color: '#fecaca', shape: 'armchair' },
+    { type: 'esstisch', name: 'Esstisch 160×90', w: 1.6, h: 0.9, color: '#fef3c7', shape: 'table' },
+    { type: 'stuhl', name: 'Stuhl 45×45', w: 0.45, h: 0.45, color: '#fef3c7', shape: 'chair' },
+    { type: 'schreibtisch', name: 'Schreibtisch 140×70', w: 1.4, h: 0.7, color: '#fef3c7', shape: 'desk' },
+    { type: 'schrank', name: 'Schrank 120×60', w: 1.2, h: 0.6, color: '#e7d8c9', shape: 'wardrobe' },
+    { type: 'kleiderschrank', name: 'Kleiderschrank 180×60', w: 1.8, h: 0.6, color: '#e7d8c9', shape: 'wardrobe' },
+    { type: 'kommode', name: 'Kommode 100×50', w: 1.0, h: 0.5, color: '#e7d8c9', shape: 'dresser' },
+    { type: 'buecherregal', name: 'Bücherregal 100×30', w: 1.0, h: 0.3, color: '#e7d8c9', shape: 'shelf' },
+    { type: 'kuechenzeile', name: 'Küchenzeile 300×60', w: 3.0, h: 0.6, color: '#d1d5db', shape: 'kitchen' },
+    { type: 'herd', name: 'Herd 60×60', w: 0.6, h: 0.6, color: '#9ca3af', shape: 'hob' },
+    { type: 'kuehlschrank', name: 'Kühlschrank 70×70', w: 0.7, h: 0.7, color: '#e5e7eb', shape: 'fridge' },
+    { type: 'spuele', name: 'Spüle 80×60', w: 0.8, h: 0.6, color: '#bae6fd', shape: 'sinkcounter' },
+    { type: 'badewanne', name: 'Badewanne 170×75', w: 1.7, h: 0.75, color: '#bae6fd', shape: 'bathtub' },
+    { type: 'dusche', name: 'Dusche 90×90', w: 0.9, h: 0.9, color: '#bae6fd', shape: 'shower' },
+    { type: 'wc', name: 'WC 40×70', w: 0.4, h: 0.7, color: '#e5e7eb', shape: 'wc' },
+    { type: 'waschbecken', name: 'Waschbecken 60×50', w: 0.6, h: 0.5, color: '#bae6fd', shape: 'washbasin' },
+    { type: 'tv', name: 'TV-Regal 120×10', w: 1.2, h: 0.1, color: '#111827', shape: 'tv' },
+    { type: 'teppich', name: 'Teppich 200×150', w: 2.0, h: 1.5, color: '#f5f5f4', shape: 'carpet' },
+    { type: 'pflanze_klein', name: 'Zimmerpflanze klein 30×30', w: 0.3, h: 0.3, color: '#dcfce7', shape: 'plant' },
+    { type: 'pflanze', name: 'Zimmerpflanze 40×40', w: 0.4, h: 0.4, color: '#bbf7d0', shape: 'plant' },
+    { type: 'pflanze_gross', name: 'Zimmerpflanze groß 60×60', w: 0.6, h: 0.6, color: '#86efac', shape: 'plant' }
   ];
 
   const ROOM_COLORS = ['#fef9c3', '#fce7f3', '#dbeafe', '#dcfce7', '#ede9fe', '#ffedd5', '#cffafe', '#fee2e2'];
@@ -187,6 +189,10 @@
       g.beginPath(); g.moveTo(p0.x, p0.y); g.lineTo(p1.x, p1.y); g.stroke();
     }
     for (const o of ops) drawOpening(g, v, w, o, { a, ux, uy });
+    if (len >= 0.5) {
+      const nx = -uy, ny = ux;
+      dimLabel(g, v, a.x + ux * len / 2 + nx * (t / 2 + 0.3), a.y + uy * len / 2 + ny * (t / 2 + 0.3), fmtM(len));
+    }
   }
 
   function drawOpening(g, v, w, o, vec) {
@@ -222,6 +228,207 @@
       g.arc(hinge.x, hinge.y, o.width * v.scale, aU, aU + d, d < 0);
       g.stroke();
     }
+    dimLabel(g, v, a.x + ux * o.offset - nx * (t / 2 + 0.3), a.y + uy * o.offset - ny * (t / 2 + 0.3), fmtM(o.width));
+  }
+
+  const fmtM = x => x.toFixed(1).replace('.', ',') + ' m';
+
+  function dimLabel(g, v, wx, wy, text) {
+    const p = toScreen(v, wx, wy);
+    g.font = fontFor(v, 11);
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    const m = typeof g.measureText === 'function' ? g.measureText(text) : null;
+    const tw = m && m.width ? m.width : text.length * 6.5;
+    const pad = 3;
+    g.fillStyle = 'rgba(255,255,255,0.88)';
+    g.fillRect(p.x - tw / 2 - pad, p.y - 8 - pad, tw + pad * 2, 16 + pad * 2);
+    g.fillStyle = '#0f172a';
+    g.fillText(text, p.x, p.y);
+  }
+
+  function rr(g, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    g.beginPath();
+    g.moveTo(x + r, y);
+    g.lineTo(x + w - r, y);
+    g.arcTo(x + w, y, x + w, y + r, r);
+    g.lineTo(x + w, y + h - r);
+    g.arcTo(x + w, y + h, x + w - r, y + h, r);
+    g.lineTo(x + r, y + h);
+    g.arcTo(x, y + h, x, y + h - r, r);
+    g.lineTo(x, y + r);
+    g.arcTo(x, y, x + r, y, r);
+    g.closePath();
+  }
+
+  function drawShape(g, f, w, h) {
+    const x = -w / 2, y = -h / 2;
+    g.strokeStyle = '#475569';
+    g.lineWidth = 1.5;
+    const base = () => {
+      g.fillStyle = f.color;
+      g.fillRect(x, y, w, h);
+      g.strokeRect(x, y, w, h);
+    };
+    switch (f.shape) {
+      case 'bed': {
+        base();
+        g.strokeRect(x + w * 0.06, y + h * 0.06, w * 0.88, h * 0.88);
+        const pw = w * 0.34, ph = h * 0.12;
+        g.fillStyle = '#ffffff';
+        g.fillRect(x + w * 0.1, y + h * 0.09, pw, ph);
+        g.strokeRect(x + w * 0.1, y + h * 0.09, pw, ph);
+        g.fillRect(x + w * 0.56, y + h * 0.09, pw, ph);
+        g.strokeRect(x + w * 0.56, y + h * 0.09, pw, ph);
+        g.beginPath(); g.moveTo(x + w * 0.06, y + h * 0.42); g.lineTo(x + w * 0.94, y + h * 0.42); g.stroke();
+        break;
+      }
+      case 'sofa':
+      case 'armchair': {
+        base();
+        g.fillStyle = 'rgba(0,0,0,0.08)';
+        g.fillRect(x, y, w, h * 0.25);
+        g.strokeRect(x, y, w, h * 0.25);
+        g.fillRect(x, y, w * 0.14, h);
+        g.strokeRect(x, y, w * 0.14, h);
+        g.fillRect(x + w * 0.86, y, w * 0.14, h);
+        g.strokeRect(x + w * 0.86, y, w * 0.14, h);
+        const n = f.shape === 'sofa' ? 3 : 1;
+        for (let i = 1; i < n; i++) {
+          const cx = x + w * 0.14 + (w * 0.72 / n) * i;
+          g.beginPath(); g.moveTo(cx, y + h * 0.25); g.lineTo(cx, y + h); g.stroke();
+        }
+        break;
+      }
+      case 'table': {
+        base();
+        g.strokeRect(x + 4, y + 4, w - 8, h - 8);
+        break;
+      }
+      case 'chair': {
+        base();
+        g.fillStyle = 'rgba(0,0,0,0.12)';
+        g.fillRect(x, y, w, h * 0.22);
+        g.strokeRect(x, y, w, h * 0.22);
+        break;
+      }
+      case 'desk': {
+        base();
+        g.beginPath(); g.moveTo(x + w * 0.7, y); g.lineTo(x + w * 0.7, y + h); g.stroke();
+        for (let i = 1; i < 3; i++) {
+          g.beginPath(); g.moveTo(x + w * 0.7, y + (h / 3) * i); g.lineTo(x + w, y + (h / 3) * i); g.stroke();
+        }
+        break;
+      }
+      case 'wardrobe': {
+        base();
+        g.beginPath(); g.moveTo(x + w / 2, y); g.lineTo(x + w / 2, y + h); g.stroke();
+        g.beginPath();
+        g.moveTo(x + w / 2 - 4, y + h / 2); g.lineTo(x + w / 2 - 1, y + h / 2);
+        g.moveTo(x + w / 2 + 1, y + h / 2); g.lineTo(x + w / 2 + 4, y + h / 2);
+        g.stroke();
+        break;
+      }
+      case 'dresser': {
+        base();
+        for (let i = 1; i < 3; i++) {
+          g.beginPath(); g.moveTo(x, y + (h / 3) * i); g.lineTo(x + w, y + (h / 3) * i); g.stroke();
+        }
+        for (let i = 0; i < 3; i++) {
+          g.beginPath(); g.arc(x + w / 2, y + (h / 3) * i + h / 6, 1.5, 0, Math.PI * 2); g.stroke();
+        }
+        break;
+      }
+      case 'shelf': {
+        base();
+        for (let i = 1; i < 4; i++) {
+          g.beginPath(); g.moveTo(x, y + (h / 4) * i); g.lineTo(x + w, y + (h / 4) * i); g.stroke();
+        }
+        break;
+      }
+      case 'kitchen': {
+        base();
+        g.strokeRect(x + 3, y + 3, w - 6, h - 6);
+        for (let i = 0; i < 4; i++) {
+          g.beginPath(); g.arc(x + w * (0.2 + 0.2 * i), y + h / 2, Math.min(w, h) * 0.12, 0, Math.PI * 2); g.stroke();
+        }
+        break;
+      }
+      case 'hob': {
+        base();
+        for (let i = 0; i < 2; i++) {
+          for (let j = 0; j < 2; j++) {
+            g.beginPath(); g.arc(x + w * (0.3 + 0.4 * i), y + h * (0.3 + 0.4 * j), Math.min(w, h) * 0.16, 0, Math.PI * 2); g.stroke();
+          }
+        }
+        break;
+      }
+      case 'fridge': {
+        base();
+        g.beginPath(); g.moveTo(x, y + h * 0.35); g.lineTo(x + w, y + h * 0.35); g.stroke();
+        g.beginPath();
+        g.moveTo(x + w - 4, y + 3); g.lineTo(x + w - 4, y + h * 0.35 - 3);
+        g.moveTo(x + w - 4, y + h * 0.35 + 3); g.lineTo(x + w - 4, y + h - 3);
+        g.stroke();
+        break;
+      }
+      case 'sinkcounter':
+      case 'washbasin': {
+        base();
+        g.beginPath(); g.ellipse(0, 0, w * 0.3, h * 0.32, 0, 0, Math.PI * 2); g.stroke();
+        g.fillStyle = '#475569';
+        g.beginPath(); g.arc(x + w * 0.85, y + h * 0.2, 2, 0, Math.PI * 2); g.fill();
+        break;
+      }
+      case 'bathtub': {
+        g.fillStyle = f.color;
+        rr(g, x, y, w, h, Math.min(w, h) * 0.25); g.fill(); g.stroke();
+        rr(g, x + w * 0.08, y + h * 0.12, w * 0.84, h * 0.76, Math.min(w, h) * 0.18); g.stroke();
+        g.beginPath(); g.arc(x + w * 0.85, y + h * 0.5, 2.5, 0, Math.PI * 2); g.stroke();
+        break;
+      }
+      case 'shower': {
+        base();
+        g.strokeRect(x + w * 0.12, y + h * 0.12, w * 0.76, h * 0.76);
+        g.beginPath(); g.arc(x + w * 0.5, y + h * 0.5, 2.5, 0, Math.PI * 2); g.stroke();
+        break;
+      }
+      case 'wc': {
+        g.fillStyle = f.color;
+        g.fillRect(x, y, w, h * 0.28);
+        g.strokeRect(x, y, w, h * 0.28);
+        g.beginPath(); g.ellipse(x + w / 2, y + h * 0.62, w * 0.42, h * 0.3, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+        break;
+      }
+      case 'tv': {
+        base();
+        break;
+      }
+      case 'carpet': {
+        g.fillStyle = f.color;
+        g.fillRect(x, y, w, h);
+        g.setLineDash([5, 4]);
+        g.strokeRect(x + 5, y + 5, w - 10, h - 10);
+        g.setLineDash([]);
+        break;
+      }
+      case 'plant': {
+        const r = Math.min(w, h);
+        g.fillStyle = '#b45309';
+        g.beginPath(); g.arc(0, 0, r * 0.22, 0, Math.PI * 2); g.fill(); g.stroke();
+        g.fillStyle = '#16a34a';
+        g.beginPath(); g.arc(-r * 0.08, -r * 0.08, r * 0.3, 0, Math.PI * 2); g.fill();
+        g.beginPath(); g.arc(r * 0.1, r * 0.05, r * 0.26, 0, Math.PI * 2); g.fill();
+        g.beginPath(); g.arc(-r * 0.02, r * 0.12, r * 0.24, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = '#14532d';
+        g.lineWidth = 1;
+        g.beginPath(); g.arc(0, 0, r * 0.3, 0, Math.PI * 2); g.stroke();
+        break;
+      }
+      default:
+        base();
+    }
   }
 
   function drawFurniture(g, v, f) {
@@ -231,16 +438,14 @@
     g.translate(c.x, c.y);
     g.rotate(f.rot * Math.PI / 180);
     const w = d.w * v.scale, h = d.h * v.scale;
-    g.fillStyle = f.color;
-    g.fillRect(-w / 2, -h / 2, w, h);
-    g.strokeStyle = '#475569';
-    g.lineWidth = 1.5;
-    g.strokeRect(-w / 2, -h / 2, w, h);
-    g.fillStyle = f.type === 'tv' ? '#f8fafc' : '#1e293b';
-    g.font = fontFor(v, 11);
-    g.textAlign = 'center';
-    g.textBaseline = 'middle';
-    g.fillText(f.name, 0, 0);
+    drawShape(g, f, w, h);
+    if (Math.max(w, h) >= 40) {
+      g.fillStyle = f.shape === 'tv' ? '#f8fafc' : '#1e293b';
+      g.font = fontFor(v, 11);
+      g.textAlign = 'center';
+      g.textBaseline = 'middle';
+      g.fillText(f.name, 0, 0);
+    }
     g.restore();
   }
 
@@ -360,7 +565,7 @@
     const item = FURNITURE.find(f => f.type === furniturePick);
     if (!item) return;
     state.furniture.push({
-      id: uid(), type: item.type, name: item.name,
+      id: uid(), type: item.type, name: item.name, shape: item.shape,
       x: snap(p.x), y: snap(p.y), rot: 0,
       w: item.w, h: item.h, color: item.color
     });
@@ -615,21 +820,26 @@
       const th = document.createElement('input');
       th.type = 'number'; th.step = '0.02'; th.min = '0.05'; th.value = w.thickness;
       th.addEventListener('change', () => { w.thickness = Math.max(0.05, parseFloat(th.value) || 0.2); save(); draw(); });
-      propsEl.append(mkRow('Länge (m)', len), mkRow('Wanddicke (m)', th), mkDel());
+      propsEl.append(mkRow('Wandlänge (m)', len), mkRow('Wanddicke (m)', th), mkDel());
     } else if (selected.kind === 'furniture') {
       const f = state.furniture.find(x => x.id === selected.id);
       if (!f) { selected = null; renderProps(); return; }
+      const d = furnDims(f);
+      const bw = document.createElement('input');
+      bw.type = 'number'; bw.step = '0.01'; bw.disabled = true; bw.value = d.w.toFixed(2);
+      const bl = document.createElement('input');
+      bl.type = 'number'; bl.step = '0.01'; bl.disabled = true; bl.value = d.h.toFixed(2);
       const rot = document.createElement('button');
       rot.textContent = 'Um 90° drehen (D)';
       rot.addEventListener('click', () => { f.rot = (f.rot + 90) % 360; save(); draw(); renderProps(); });
-      propsEl.append(mkInfo(f.name + ' – ' + f.w + ' × ' + f.h + ' m'), rot, mkDel());
+      propsEl.append(mkRow('Breite (m)', bw), mkRow('Länge (m)', bl), mkInfo(f.name), rot, mkDel());
     } else if (selected.kind === 'opening') {
       const o = state.openings.find(x => x.id === selected.id);
       if (!o) { selected = null; renderProps(); return; }
       const wIn = document.createElement('input');
       wIn.type = 'number'; wIn.step = '0.1'; wIn.min = '0.3'; wIn.value = o.width;
       wIn.addEventListener('change', () => { o.width = Math.max(0.3, parseFloat(wIn.value) || o.width); save(); draw(); });
-      propsEl.append(mkRow('Breite (m)', wIn), mkInfo(o.kind === 'door' ? 'Tür' : 'Fenster'), mkDel());
+      propsEl.append(mkRow(o.kind === 'door' ? 'Türbreite (m)' : 'Fensterlänge (m)', wIn), mkInfo(o.kind === 'door' ? 'Tür' : 'Fenster'), mkDel());
     }
   }
 

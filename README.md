@@ -19,7 +19,8 @@ Dann im Browser öffnen: <http://localhost:8000>
 - **Wände zeichnen** – zwei Punkte klicken/ziehen; achsiale Ausrichtung rastet automatisch ein (Rasterfang 10 cm)
 - **Räume anlegen** – Rechteck aufziehen, mit Name und automatischer Flächenangabe in m²
 - **Türen und Fenster** – per Klick in eine bestehende Wand einsetzen (werden als Aussparung mit Symbol gezeichnet)
-- **Möbel platzieren** – aus der Bibliothek (Bett, Sofa, Küchenzeile, Badewanne …) per Klick setzen, verschieben und um 90° drehen
+- **Möbel platzieren** – aus der Bibliothek (Bett, Sofa, Küchenzeile, Badewanne, Zimmerpflanzen …) per Klick setzen, verschieben und um 90° drehen; jedes Möbel wird als 2D-Draufsicht (Möbelsymbol von oben) gezeichnet
+- **Bemaßung in Metern** – jede Wand und jedes Fenster trägt seine Länge direkt im Plan; beim Anklicken rechts in der Leiste: Wandlänge, Fensterlänge bzw. Breite × Länge des Möbelstücks (berücksichtigt die Drehung)
 - **Verschieben & Zoomen** – Elemente per Drag verschieben, Mausrad zoomt um den Mauszeiger, mittlere Maustaste/Leertaste verschiebt die Ansicht
 - **Eigenschaften** – Raumname, Wanddicke und Öffnungsbreite bearbeiten; Flächen und Gesamtfläche werden live angezeigt
 - **Speichern & Laden** – automatisch im Browser (localStorage), plus JSON-Export/Import und PNG-Export des gesamten Grundrisses
