@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wohnungsplaner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Wohnungsplaner</h1>
+  <div class="header-actions">
+    <button id="btn-new" title="Neuen Grundriss erstellen">Neu</button>
+    <button id="btn-save" title="Im Browser speichern (Strg+S)">Speichern</button>
+    <button id="btn-load" title="Gespeicherten Plan laden">Laden</button>
+    <button id="btn-export-json" title="Plan als JSON-Datei exportieren">JSON exportieren</button>
+    <button id="btn-import-json" title="Plan aus JSON-Datei importieren">JSON importieren</button>
+    <input type="file" id="import-file" accept="application/json,.json" hidden>
+    <button id="btn-export-png" title="Grundriss als PNG-Bild exportieren">PNG exportieren</button>
+  </div>
+</header>
+<div id="main">
+  <nav id="toolbar">
+    <button data-tool="select" class="tool active" title="Auswählen und Verschieben (V)">🖱️ Auswählen</button>
+    <button data-tool="wall" class="tool" title="Wand zeichnen: zwei Punkte klicken/ziehen (W)">🧱 Wand</button>
+    <button data-tool="room" class="tool" title="Raum als Rechteck aufziehen (R)">▭ Raum</button>
+    <button data-tool="door" class="tool" title="Tür in eine Wand klicken (T)">🚪 Tür</button>
+    <button data-tool="window" class="tool" title="Fenster in eine Wand klicken (F)">🪟 Fenster</button>
+    <button data-tool="furniture" class="tool" title="Möbel platzieren (M)">🛋️ Möbel</button>
+    <button data-tool="erase" class="tool" title="Element löschen (E)">🗑️ Löschen</button>
+    <button data-tool="pan" class="tool" title="Ansicht verschieben (H) oder mittlere Maustaste/Leertaste">✋ Hand</button>
+  </nav>
+  <div id="canvas-wrap">
+    <canvas id="canvas"></canvas>
+    <div id="status"></div>
+  </div>
+  <aside id="sidebar">
+    <section>
+      <h2>Plan</h2>
+      <label>Grundriss-Name
+        <input id="plan-name" type="text" value="Mein Grundriss">
+      </label>
+      <div id="plan-stats"></div>
+    </section>
+    <section>
+      <h2>Möbel</h2>
+      <div id="palette"></div>
+      <p class="hint">Möbel auswählen und dann auf die Zeichenfläche klicken. Esc beendet die Platzierung.</p>
+    </section>
+    <section>
+      <h2>Auswahl</h2>
+      <div id="props"></div>
+    </section>
+    <section>
+      <h2>Hilfe</h2>
+      <ul class="hint">
+        <li>Ziehen: Wände, Räume und Möbel verschieben</li>
+        <li>Entf: Auswahl löschen</li>
+        <li>D: Möbel um 90° drehen</li>
+        <li>Mausrad: zoomen (um den Mauszeiger)</li>
+        <li>Leertaste + Ziehen oder mittlere Maustaste: Ansicht verschieben</li>
+        <li>Rasterfang: 10 cm</li>
+      </ul>
+    </section>
+  </aside>
+</div>
+<script src="app.js" defer></script>
+</body>
+</html>
