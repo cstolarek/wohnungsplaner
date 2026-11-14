@@ -43,3 +43,9 @@ Dann im Browser öffnen: <http://localhost:8000>
 
 Pläne werden als JSON im localStorage des Browsers abgelegt und können als JSON-Datei
 exportiert/importiert werden.
+
+## Fussball-Spiel (Amiga-Stil)
+
+Im Ordner [`fussball/`](fussball/) liegt ein Top-Down-Fussballspiel im Stil von
+Sensible Soccer auf dem Amiga – ebenfalls reines HTML/CSS/JavaScript ohne externe
+Abhängigkeiten. Start über [`fussball/index.html`](fussball/index.html) im Browser.
