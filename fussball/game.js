@@ -1,10 +1,10 @@
 'use strict';
 (() => {
-  const W = 320, H = 256, HUD_H = 16;
-  const PPM = 6;
+  const W = 256, H = 320, HUD_H = 16;
+  const PPM = 3.5;
   const VIEW_W = W / PPM;
   const VIEW_H = (H - HUD_H) / PPM;
-  const PITCH_W = 105, PITCH_H = 68;
+  const PITCH_W = 68, PITCH_H = 105;
   const MID_X = PITCH_W / 2, MID_Y = PITCH_H / 2;
   const GOAL_HALF = 7.32 / 2;
   const POST_R = 0.15;
@@ -109,79 +109,72 @@
     const stripes = 10;
     for (let i = 0; i < stripes; i++) {
       wctx.fillStyle = i % 2 ? '#379237' : '#3f9e40';
-      wctx.fillRect(OX + (PITCH_W / stripes) * i * PPM, OY, (PITCH_W / stripes) * PPM + 1, PITCH_H * PPM);
+      wctx.fillRect(OX, OY + (PITCH_H / stripes) * i * PPM, PITCH_W * PPM, (PITCH_H / stripes) * PPM + 1);
     }
-    const boards = [['PIXEL-FUSSBALL', '#a02020'], ['AMIGA-STYLE', '#2040a0'], ['5 GEGEN 5', '#c09010'], ['KICKOFF', '#207020']];
+    const boards = [['PIXEL-FUSSBALL', '#a02020'], ['AMIGA-STYLE', '#2040a0'], ['11 GEGEN 11', '#c09010'], ['KICKOFF', '#207020']];
     for (let side = 0; side < 2; side++) {
-      const by = side === 0 ? OY - APRON + 4 : OY + PITCH_H * PPM + 4;
-      let bx = OX + 6;
+      const by = side === 0 ? OY - APRON + 3 : OY + PITCH_H * PPM + 3;
+      let bx = OX + 4;
       let bi = 0;
       while (bx < OX + PITCH_W * PPM - 30) {
         const bw = textW(boards[bi % boards.length][0], 1) + 10;
         wctx.fillStyle = boards[bi % boards.length][1];
-        wctx.fillRect(bx, by, bw, APRON - 8);
-        drawText(wctx, boards[bi % boards.length][0], bx + 5, by + 4, 1, '#ffffff');
+        wctx.fillRect(bx, by, bw, APRON - 6);
+        drawText(wctx, boards[bi % boards.length][0], bx + 5, by + 2, 1, '#ffffff');
         bx += bw + 6;
         bi++;
       }
     }
     wctx.strokeStyle = '#f2f2f2';
     wctx.lineWidth = 2;
-    const gy1 = OY + (MID_Y - GOAL_HALF) * PPM, gy2 = OY + (MID_Y + GOAL_HALF) * PPM;
-    wctx.beginPath();
-    wctx.moveTo(OX, OY);
-    wctx.lineTo(OX + PITCH_W * PPM, OY);
-    wctx.moveTo(OX + PITCH_W * PPM, OY + PITCH_H * PPM);
-    wctx.lineTo(OX, OY + PITCH_H * PPM);
-    wctx.stroke();
-    for (const gx of [OX, OX + PITCH_W * PPM]) {
+    const gx1 = OX + (MID_X - GOAL_HALF) * PPM, gx2 = OX + (MID_X + GOAL_HALF) * PPM;
+    for (const gy of [OY, OY + PITCH_H * PPM]) {
       wctx.beginPath();
-      wctx.moveTo(gx, OY);
-      wctx.lineTo(gx, gy1);
-      wctx.moveTo(gx, gy2);
-      wctx.lineTo(gx, OY + PITCH_H * PPM);
+      wctx.moveTo(OX, gy);
+      wctx.lineTo(gx1, gy);
+      wctx.moveTo(gx2, gy);
+      wctx.lineTo(OX + PITCH_W * PPM, gy);
       wctx.stroke();
     }
     wctx.beginPath();
-    wctx.moveTo(OX + MID_X * PPM, OY);
-    wctx.lineTo(OX + MID_X * PPM, OY + PITCH_H * PPM);
+    wctx.moveTo(OX, OY);
+    wctx.lineTo(OX, OY + PITCH_H * PPM);
+    wctx.moveTo(OX + PITCH_W * PPM, OY);
+    wctx.lineTo(OX + PITCH_W * PPM, OY + PITCH_H * PPM);
+    wctx.stroke();
+    wctx.beginPath();
+    wctx.moveTo(OX, OY + MID_Y * PPM);
+    wctx.lineTo(OX + PITCH_W * PPM, OY + MID_Y * PPM);
     wctx.stroke();
     wctx.beginPath();
     wctx.arc(OX + MID_X * PPM, OY + MID_Y * PPM, 9.15 * PPM, 0, Math.PI * 2);
     wctx.stroke();
+    wctx.fillStyle = '#f2f2f2';
+    wctx.fillRect(OX + MID_X * PPM - 1, OY + MID_Y * PPM - 1, 3, 3);
     for (let s = 0; s < 2; s++) {
-      const gx = OX + (s === 0 ? 0 : PITCH_W * PPM);
+      const gy = s === 0 ? OY : OY + PITCH_H * PPM;
       const dir = s === 0 ? 1 : -1;
-      const boxW = 40.32 * PPM, boxD = 16.5 * PPM;
-      const smallW = 18.32 * PPM, smallD = 5.5 * PPM;
-      for (const [bw, bd] of [[boxW, boxD], [smallW, smallD]]) {
-        const top = OY + MID_Y * PPM - bw / 2;
+      for (const [bw, bd] of [[40.32 * PPM, 16.5 * PPM], [18.32 * PPM, 5.5 * PPM]]) {
+        const left = OX + MID_X * PPM - bw / 2;
         wctx.beginPath();
-        wctx.moveTo(gx, top);
-        wctx.lineTo(gx + dir * bd, top);
-        wctx.moveTo(gx + dir * bd, top);
-        wctx.lineTo(gx + dir * bd, top + bw);
-        wctx.moveTo(gx + dir * bd, top + bw);
-        wctx.lineTo(gx, top + bw);
+        wctx.moveTo(left, gy);
+        wctx.lineTo(left, gy + dir * bd);
+        wctx.lineTo(left + bw, gy + dir * bd);
+        wctx.lineTo(left + bw, gy);
         wctx.stroke();
       }
       wctx.fillStyle = '#f2f2f2';
-      wctx.fillRect(gx + dir * 11 * PPM - 1, OY + MID_Y * PPM - 1, 3, 3);
-      wctx.strokeStyle = '#f2f2f2';
-      const spotX = gx + dir * 11 * PPM;
-      const arcA0 = dir === 1 ? -0.93 : Math.PI - 0.93;
+      wctx.fillRect(OX + MID_X * PPM - 1, gy + dir * 11 * PPM - 1, 3, 3);
+      const spotY = gy + dir * 11 * PPM;
+      const arcA0 = dir === 1 ? 0.925 : Math.PI + 0.925;
       wctx.beginPath();
-      wctx.arc(spotX, OY + MID_Y * PPM, 9.15 * PPM, arcA0, arcA0 + 1.86);
+      wctx.arc(OX + MID_X * PPM, spotY, 9.15 * PPM, arcA0, arcA0 + Math.PI - 1.85);
       wctx.stroke();
-      const back = s === 0 ? OX - 1.5 * PPM : OX + PITCH_W * PPM + 1.5 * PPM;
-      const y1 = OY + (MID_Y - GOAL_HALF) * PPM, y2 = OY + (MID_Y + GOAL_HALF) * PPM;
-      wctx.fillStyle = 'rgba(255,255,255,0.15)';
-      wctx.fillRect(Math.min(gx, back), y1, Math.abs(back - gx), y2 - y1);
-      wctx.strokeStyle = '#d8d8d8';
-      wctx.strokeRect(Math.min(gx, back), y1, Math.abs(back - gx), y2 - y1);
+      wctx.fillStyle = 'rgba(255,255,255,0.12)';
+      wctx.fillRect(gx1, Math.min(gy, gy + dir * 1.2 * PPM), gx2 - gx1, 1.2 * PPM);
       wctx.fillStyle = '#ffffff';
-      wctx.beginPath(); wctx.arc(gx, y1, 2, 0, Math.PI * 2); wctx.fill();
-      wctx.beginPath(); wctx.arc(gx, y2, 2, 0, Math.PI * 2); wctx.fill();
+      wctx.beginPath(); wctx.arc(gx1, gy, 2, 0, Math.PI * 2); wctx.fill();
+      wctx.beginPath(); wctx.arc(gx2, gy, 2, 0, Math.PI * 2); wctx.fill();
     }
     wctx.strokeStyle = '#f2f2f2';
     for (const [cx, cy, a0] of [
@@ -202,15 +195,21 @@
     { name: 'BLAU', shirt: '#2848d8', shorts: '#f2f2f2', gk: '#c8c8c8', attack: -1 },
   ];
   const FORMATION = [
-    { role: 'GK', x: 5, y: MID_Y },
-    { role: 'DF', x: 24, y: MID_Y - 13 },
-    { role: 'DF', x: 24, y: MID_Y + 13 },
-    { role: 'MF', x: 42, y: MID_Y },
-    { role: 'FW', x: 62, y: MID_Y },
+    { role: 'GK', x: MID_X, y: 5 },
+    { role: 'DF', x: MID_X - 20, y: 24 },
+    { role: 'DF', x: MID_X - 7, y: 20 },
+    { role: 'DF', x: MID_X + 7, y: 20 },
+    { role: 'DF', x: MID_X + 20, y: 24 },
+    { role: 'MF', x: MID_X - 22, y: 42 },
+    { role: 'MF', x: MID_X - 8, y: 38 },
+    { role: 'MF', x: MID_X + 8, y: 38 },
+    { role: 'MF', x: MID_X + 22, y: 42 },
+    { role: 'FW', x: MID_X - 8, y: 58 },
+    { role: 'FW', x: MID_X + 8, y: 58 },
   ];
   const POSTS = [
-    { x: 0, y: MID_Y - GOAL_HALF }, { x: 0, y: MID_Y + GOAL_HALF },
-    { x: PITCH_W, y: MID_Y - GOAL_HALF }, { x: PITCH_W, y: MID_Y + GOAL_HALF },
+    { x: MID_X - GOAL_HALF, y: 0 }, { x: MID_X + GOAL_HALF, y: 0 },
+    { x: MID_X - GOAL_HALF, y: PITCH_H }, { x: MID_X + GOAL_HALF, y: PITCH_H },
   ];
 
   const S = {
@@ -226,7 +225,7 @@
   };
   let players = [];
   let ball = { x: MID_X, y: MID_Y, vx: 0, vy: 0, owner: null, lastTouch: -1 };
-  let cam = { x: clamp(MID_X - VIEW_W / 2, 0, PITCH_W - VIEW_W), y: clamp(MID_Y - VIEW_H / 2, 0, PITCH_H - VIEW_H) };
+  let cam = { x: (PITCH_W - VIEW_W) / 2, y: clamp(MID_Y - VIEW_H / 2, 0, Math.max(0, PITCH_H - VIEW_H)) };
   let active = null;
 
   const keys = {};
@@ -293,10 +292,10 @@
     players = [];
     for (let t = 0; t < 2; t++) {
       for (const f of FORMATION) {
-        const x = TEAMS[t].attack === 1 ? f.x : PITCH_W - f.x;
+        const y = TEAMS[t].attack === 1 ? f.y : PITCH_H - f.y;
         players.push({
-          team: t, role: f.role, x, y: f.y, hx: x, hy: f.y,
-          vx: 0, vy: 0, face: TEAMS[t].attack === 1 ? 0 : Math.PI,
+          team: t, role: f.role, x: f.x, y, hx: f.x, hy: y,
+          vx: 0, vy: 0, face: TEAMS[t].attack === 1 ? Math.PI / 2 : -Math.PI / 2,
           shirt: f.role === 'GK' ? TEAMS[t].gk : TEAMS[t].shirt,
           shorts: TEAMS[t].shorts,
           stealCd: 0, aiT: Math.random() * 0.3, gkT: 0,
@@ -307,8 +306,8 @@
     const fwd = players.find(p => p.team === kickoffTeam && p.role === 'FW');
     ball.owner = fwd;
     active = nearestToBall(0);
-    cam.x = clamp(MID_X - VIEW_W / 2, 0, PITCH_W - VIEW_W);
-    cam.y = clamp(MID_Y - VIEW_H / 2, 0, PITCH_H - VIEW_H);
+    cam.x = (PITCH_W - VIEW_W) / 2;
+    cam.y = clamp(MID_Y - VIEW_H / 2, 0, Math.max(0, PITCH_H - VIEW_H));
   }
 
   function nearestToBall(team) {
@@ -385,9 +384,9 @@
   }
 
   function shootAtGoal(p) {
-    const gx = p.team === 0 ? PITCH_W : 0;
-    const aim = clamp(MID_Y + (Math.random() - 0.5) * 4, MID_Y - GOAL_HALF + 0.4, MID_Y + GOAL_HALF - 0.4);
-    kickBall(p, gx, aim, 17 + Math.random() * 4);
+    const gy = p.team === 0 ? PITCH_H : 0;
+    const gx = clamp(MID_X + (Math.random() - 0.5) * 4, MID_X - GOAL_HALF + 0.4, MID_X + GOAL_HALF - 0.4);
+    kickBall(p, gx, gy, 17 + Math.random() * 4);
   }
 
   function humanPass() {
@@ -415,8 +414,8 @@
     const p = active;
     if (!p || ball.owner !== p) return;
     const dir = inputDir();
-    const gx = p.team === 0 ? PITCH_W : 0;
-    const gy = clamp(MID_Y + dir.dy * 6 + (Math.random() - 0.5) * 1.2, MID_Y - GOAL_HALF + 0.3, MID_Y + GOAL_HALF - 0.3);
+    const gy = p.team === 0 ? PITCH_H : 0;
+    const gx = clamp(MID_X + dir.dx * 6 + (Math.random() - 0.5) * 1.2, MID_X - GOAL_HALF + 0.3, MID_X + GOAL_HALF - 0.3);
     kickBall(p, gx, gy, 18 + Math.random() * 4);
   }
 
@@ -426,7 +425,7 @@
       if (m.team !== p.team || m === p) continue;
       const d = dist(p, m);
       if (d < 3 || d > 30) continue;
-      const progress = (p.team === 0 ? 1 : -1) * (m.x - p.x);
+      const progress = (p.team === 0 ? 1 : -1) * (m.y - p.y);
       let open = 0;
       for (const q of players) if (q.team !== p.team && dist(q, m) > 2) open++;
       const s = progress * 2 + open * 0.5 - d * 0.1;
@@ -437,19 +436,19 @@
   }
 
   function aiControl(p, dt) {
-    const oppGoalX = p.team === 0 ? PITCH_W : 0;
+    const oppGoalY = p.team === 0 ? PITCH_H : 0;
     let tx, ty;
     if (p.role === 'GK') {
-      tx = p.team === 0 ? 1.4 : PITCH_W - 1.4;
-      ty = clamp(ball.y, MID_Y - 10, MID_Y + 10);
+      ty = p.team === 0 ? 1.4 : PITCH_H - 1.4;
+      tx = clamp(ball.x, MID_X - 10, MID_X + 10);
       if (!ball.owner && dist(p, ball) < 3.5) { tx = ball.x; ty = ball.y; }
     } else if (ball.owner === p) {
-      tx = oppGoalX;
-      ty = MID_Y + Math.sin(S.minute * 2.2 + p.hy * 0.3) * 7;
+      ty = oppGoalY;
+      tx = MID_X + Math.sin(S.minute * 2.2 + p.hx * 0.3) * 8;
       p.aiT -= dt;
       if (p.aiT <= 0) {
         p.aiT = 0.25;
-        const goalD = Math.abs(oppGoalX - p.x);
+        const goalD = Math.abs(oppGoalY - p.y);
         let pressured = false;
         for (const q of players) if (q.team !== p.team && dist(q, p) < 1.7) { pressured = true; break; }
         if (goalD < 17) shootAtGoal(p);
@@ -461,8 +460,8 @@
       else { tx = p.hx + (ball.x - p.hx) * 0.35; ty = p.hy + (ball.y - p.hy) * 0.35; }
     } else if (ball.owner.team === p.team) {
       const dir = p.team === 0 ? 1 : -1;
-      tx = p.hx + (ball.x - p.hx) * 0.45 + dir * 8;
-      ty = p.hy + (ball.y - p.hy) * 0.45;
+      tx = p.hx + (ball.x - p.hx) * 0.45;
+      ty = p.hy + (ball.y - p.hy) * 0.45 + dir * 8;
     } else {
       const mates = players.filter(q => q.team === p.team && q.role !== 'GK');
       const sorted = mates.slice().sort((a, b) => dist(a, ball) - dist(b, ball));
@@ -476,8 +475,8 @@
   }
 
   function gkClear(p) {
-    const tx = p.team === 0 ? PITCH_W * 0.8 : PITCH_W * 0.2;
-    const ty = MID_Y + (Math.random() - 0.5) * 22;
+    const ty = p.team === 0 ? PITCH_H * 0.8 : PITCH_H * 0.2;
+    const tx = MID_X + (Math.random() - 0.5) * 22;
     kickBall(p, tx, ty, 15);
     p.gkT = 0;
   }
@@ -500,8 +499,8 @@
     ball.vy = 0;
     if (kind === 'side') {
       const team = ball.lastTouch === 0 ? 1 : 0;
-      ball.x = clamp(ball.x, 1, PITCH_W - 1);
-      ball.y = side === 0 ? 0.7 : PITCH_H - 0.7;
+      ball.x = side === 0 ? 0.7 : PITCH_W - 0.7;
+      ball.y = clamp(ball.y, 1, PITCH_H - 1);
       S.state = 'break';
       S.timer = 0.9;
       S.message = 'EINWURF';
@@ -511,16 +510,16 @@
       const defending = side === 0 ? 0 : 1;
       const attacking = 1 - defending;
       if (ball.lastTouch === attacking) {
-        ball.x = side === 0 ? 0.8 : PITCH_W - 0.8;
-        ball.y = ball.y < MID_Y ? 0.8 : PITCH_H - 0.8;
+        ball.y = side === 0 ? 0.8 : PITCH_H - 0.8;
+        ball.x = clamp(ball.x, 1, PITCH_W - 1);
         S.state = 'break';
         S.timer = 1.0;
         S.message = 'ECKSTOSS';
         S.sub = TEAMS[attacking].name;
         S.restartPlayer = nearestTo(ball, attacking);
       } else {
-        ball.x = side === 0 ? 5 : PITCH_W - 5;
-        ball.y = clamp(ball.y, MID_Y - 12, MID_Y + 12);
+        ball.y = side === 0 ? 5 : PITCH_H - 5;
+        ball.x = clamp(ball.x, MID_X - 12, MID_X + 12);
         S.state = 'break';
         S.timer = 1.2;
         S.message = 'ABSTOSS';
@@ -590,13 +589,13 @@
         ball.y = post.y + ny * (POST_R + 0.13);
       }
     }
-    const inMouth = ball.y > MID_Y - GOAL_HALF + 0.1 && ball.y < MID_Y + GOAL_HALF - 0.1;
-    if (ball.x < 0 && inMouth) return onGoal(1);
-    if (ball.x > PITCH_W && inMouth) return onGoal(0);
-    if (ball.x < 0) { ball.x = 0; ball.vx = Math.abs(ball.vx) * 0.6; onOut('goal', 0); }
-    else if (ball.x > PITCH_W) { ball.x = PITCH_W; ball.vx = -Math.abs(ball.vx) * 0.6; onOut('goal', 1); }
-    if (ball.y < 0) { ball.y = 0; ball.vy = Math.abs(ball.vy) * 0.6; onOut('side', 0); }
-    else if (ball.y > PITCH_H) { ball.y = PITCH_H; ball.vy = -Math.abs(ball.vy) * 0.6; onOut('side', 1); }
+    const inMouth = ball.x > MID_X - GOAL_HALF + 0.1 && ball.x < MID_X + GOAL_HALF - 0.1;
+    if (ball.y < 0 && inMouth) return onGoal(1);
+    if (ball.y > PITCH_H && inMouth) return onGoal(0);
+    if (ball.y < 0) { ball.y = 0; ball.vy = Math.abs(ball.vy) * 0.6; onOut('goal', 0); }
+    else if (ball.y > PITCH_H) { ball.y = PITCH_H; ball.vy = -Math.abs(ball.vy) * 0.6; onOut('goal', 1); }
+    if (ball.x < 0) { ball.x = 0; ball.vx = Math.abs(ball.vx) * 0.6; onOut('side', 0); }
+    else if (ball.x > PITCH_W) { ball.x = PITCH_W; ball.vx = -Math.abs(ball.vx) * 0.6; onOut('side', 1); }
   }
 
   function updateActive() {
@@ -609,8 +608,8 @@
   }
 
   function updateCam(dt) {
-    const tx = clamp(ball.x + ball.vx * 0.4 - VIEW_W / 2, 0, PITCH_W - VIEW_W);
-    const ty = clamp(ball.y + ball.vy * 0.4 - VIEW_H / 2, 0, PITCH_H - VIEW_H);
+    const tx = VIEW_W >= PITCH_W ? (PITCH_W - VIEW_W) / 2 : clamp(ball.x + ball.vx * 0.4 - VIEW_W / 2, 0, PITCH_W - VIEW_W);
+    const ty = VIEW_H >= PITCH_H ? (PITCH_H - VIEW_H) / 2 : clamp(ball.y + ball.vy * 0.4 - VIEW_H / 2, 0, PITCH_H - VIEW_H);
     const k = Math.min(1, 6 * dt);
     cam.x += (tx - cam.x) * k;
     cam.y += (ty - cam.y) * k;
@@ -715,9 +714,9 @@
     const x = Math.round((ball.x - cam.x) * PPM);
     const y = Math.round(HUD_H + (ball.y - cam.y) * PPM);
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
-    ctx.fillRect(x - 1, y + 2, 3, 1);
+    ctx.fillRect(x - 1, y + 2, 2, 1);
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(x - 1, y - 1, 3, 3);
+    ctx.fillRect(x - 1, y - 1, 2, 2);
     ctx.fillStyle = '#111111';
     ctx.fillRect(x, y, 1, 1);
   }
@@ -745,41 +744,49 @@
     ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, W, 8);
-    drawTextC(ctx, 'PIXEL-FUSSBALL', W / 2, 34, 3, '#ffff00');
-    drawTextC(ctx, 'IM STIL VON SENSIBLE SOCCER (AMIGA)', W / 2, 62, 1, '#ffffff');
-    const px = 60, py = 78, pw = 200, ph = 76;
+    drawTextC(ctx, 'PIXEL-FUSSBALL', W / 2, 26, 3, '#ffff00');
+    drawTextC(ctx, 'IM STIL VON SENSIBLE SOCCER (AMIGA)', W / 2, 54, 1, '#ffffff');
+    const px = 88, py = 72, pw = 80, ph = 118;
     ctx.fillStyle = '#379237';
     ctx.fillRect(px, py, pw, ph);
     ctx.fillStyle = '#3f9e40';
-    ctx.fillRect(px, py, pw / 2, ph);
+    ctx.fillRect(px, py, pw, ph / 2);
     ctx.strokeStyle = '#f2f2f2';
     ctx.lineWidth = 1;
     ctx.strokeRect(px, py, pw, ph);
-    ctx.beginPath(); ctx.moveTo(px + pw / 2, py); ctx.lineTo(px + pw / 2, py + ph); ctx.stroke();
-    ctx.beginPath(); ctx.arc(px + pw / 2, py + ph / 2, 12, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(px, py + ph / 2);
+    ctx.lineTo(px + pw, py + ph / 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(px + pw / 2, py + ph / 2, 12, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = '#0000aa';
+    ctx.fillRect(px + pw / 2 - 6, py - 1, 12, 2);
+    ctx.fillRect(px + pw / 2 - 6, py + ph - 1, 12, 2);
     for (let i = 0; i < 5; i++) {
-      ctx.fillStyle = i % 2 ? '#2848d8' : '#d42828';
-      ctx.fillRect(px + 20 + i * 14, py + ph / 2 - 2, 4, 4);
-      ctx.fillStyle = i % 2 ? '#d42828' : '#2848d8';
-      ctx.fillRect(px + pw - 24 - i * 14, py + ph / 2 - 2, 4, 4);
+      ctx.fillStyle = '#d42828';
+      ctx.fillRect(px + 10 + i * 6, py + 20, 3, 3);
+      ctx.fillStyle = '#2848d8';
+      ctx.fillRect(px + pw - 13 - i * 6, py + ph - 23, 3, 3);
     }
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(px + pw / 2 - 1, py + ph / 2 - 1, 2, 2);
-    drawTextC(ctx, 'STEUERUNG', W / 2, 168, 1, '#ffff00');
-    drawTextC(ctx, 'PFEILE / WASD   LAUFEN', W / 2, 180, 1, '#ffffff');
-    drawTextC(ctx, 'LEERTASTE       PASSEN', W / 2, 191, 1, '#ffffff');
-    drawTextC(ctx, 'SHIFT / X       SCHIESSEN', W / 2, 202, 1, '#ffffff');
-    drawTextC(ctx, 'M TON  -  P PAUSE', W / 2, 213, 1, '#ffffff');
+    drawTextC(ctx, 'STEUERUNG', W / 2, 204, 1, '#ffff00');
+    drawTextC(ctx, 'PFEILE / WASD   LAUFEN', W / 2, 216, 1, '#ffffff');
+    drawTextC(ctx, 'LEERTASTE       PASSEN', W / 2, 227, 1, '#ffffff');
+    drawTextC(ctx, 'SHIFT / X       SCHIESSEN', W / 2, 238, 1, '#ffffff');
+    drawTextC(ctx, 'M TON  -  P PAUSE', W / 2, 249, 1, '#ffffff');
     if (Math.floor(performance.now() / 500) % 2 === 0) {
-      drawTextC(ctx, 'TASTE DRUECKEN FUR START', W / 2, 236, 1, '#ffff00');
+      drawTextC(ctx, 'TASTE DRUECKEN FUR START', W / 2, 292, 1, '#ffff00');
     }
   }
 
   function drawBreak() {
     ctx.fillStyle = 'rgba(0,0,0,0.5)';
     ctx.fillRect(0, HUD_H, W, H - HUD_H);
-    drawTextC(ctx, S.message, W / 2, 108, 2, '#ffff00');
-    if (S.sub) drawTextC(ctx, S.sub, W / 2, 130, 1, '#ffffff');
+    drawTextC(ctx, S.message, W / 2, 140, 2, '#ffff00');
+    if (S.sub) drawTextC(ctx, S.sub, W / 2, 162, 1, '#ffffff');
   }
 
   function drawFullOverlay(title, lines, blink) {
@@ -789,18 +796,24 @@
     ctx.fillRect(0, 0, W, 8);
     drawTextC(ctx, title, W / 2, 60, 2, '#ffff00');
     drawTextC(ctx, scoreLine(), W / 2, 100, 2, '#ffffff');
-    let y = 130;
+    let y = 140;
     for (const ln of lines) {
       drawTextC(ctx, ln, W / 2, y, 1, '#ffffff');
       y += 12;
     }
     if (Math.floor(performance.now() / 500) % 2 === 0) {
-      drawTextC(ctx, blink, W / 2, 220, 1, '#ffff00');
+      drawTextC(ctx, blink, W / 2, 280, 1, '#ffff00');
     }
   }
 
   function render() {
-    ctx.drawImage(world, cam.x * PPM, cam.y * PPM, W, H - HUD_H, 0, HUD_H, W, H - HUD_H);
+    let sx = cam.x * PPM, sy = cam.y * PPM;
+    let dx = 0, dy = HUD_H, dw = W, dh = H - HUD_H;
+    if (sx < 0) { dx -= sx; dw += sx; sx = 0; }
+    if (sy < 0) { dy -= sy; dh += sy; sy = 0; }
+    if (sx + dw > world.width) dw = world.width - sx;
+    if (sy + dh > world.height) dh = world.height - sy;
+    ctx.drawImage(world, sx, sy, dw, dh, dx, dy, dw, dh);
     const ents = players.slice().sort((a, b) => a.y - b.y);
     for (const p of ents) drawPlayer(p);
     drawBall();
@@ -816,7 +829,7 @@
     } else if (S.state === 'pause') {
       ctx.fillStyle = 'rgba(0,0,0,0.5)';
       ctx.fillRect(0, HUD_H, W, H - HUD_H);
-      drawTextC(ctx, 'PAUSE', W / 2, 120, 2, '#ffff00');
+      drawTextC(ctx, 'PAUSE', W / 2, 150, 2, '#ffff00');
     }
   }
 
@@ -875,6 +888,7 @@
       score: S.score.slice(),
       ball: { x: Math.round(ball.x * 10) / 10, y: Math.round(ball.y * 10) / 10, vx: Math.round(ball.vx * 10) / 10, vy: Math.round(ball.vy * 10) / 10, ownerTeam: ball.owner ? ball.owner.team : null },
       players: players.length,
+      cam: { x: Math.round(cam.x * 100) / 100, y: Math.round(cam.y * 100) / 100 },
     }),
   };
 })();

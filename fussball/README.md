@@ -2,7 +2,9 @@
 
 Top-Down-Fußballspiel im Stil von Sensible Soccer auf dem Commodore Amiga –
 komplett im Browser, reines HTML/CSS/JavaScript ohne Installation und ohne
-externe Abhängigkeiten.
+externe Abhängigkeiten. **Hochkant** (256×320): das Spielfeld steht senkrecht,
+die Kamera scrollt in Längsrichtung mit dem Ball; die Tore sind Bereiche an
+den beiden Schmalseiten.
 
 ## Starten
 
@@ -27,9 +29,12 @@ Dann im Browser öffnen: <http://localhost:8000>
 
 ## Spielweise
 
-- 5 gegen 5 (1 Torwart + 4 Feldspieler), zwei Halbzeiten à 45 Spielminuten
-  (1 Sekunde Echtzeit = 1 Spielminute)
-- Kamera folgt dem Ball mit etwas Vorhalt, wie beim Original
+- 11 gegen 11 (1 Torwart + 10 Feldspieler, Aufstellung 4-4-2), zwei Halbzeiten
+  à 45 Spielminuten (1 Sekunde Echtzeit = 1 Spielminute)
+- Hochkant-Darstellung: Spielfeld 68 m × 105 m steht senkrecht, Kamera folgt
+  dem Ball mit etwas Vorhalt in Längsrichtung
+- Tore: markierter Bereich (7,32 m) an der Schmalseite – Torlinie dort
+  unterbrochen, zwei Pfosten; kein Tornetz außerhalb des Feldes
 - Tore, Einwürfe, Eckstöße und Abstöße werden automatisch ausgeführt
 - Der Ball haftet am Fuß des ballführenden Spielers; Gegner können ihn durch
   Kontakt abnehmen
